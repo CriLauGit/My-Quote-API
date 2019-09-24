@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="./styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Delete Quote</title>
+        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Pacifico|Righteous|Special+Elite&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <h1>YOU THINK IT, WE QUOTE IT</h1>
+        </header>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="add-quote.html">Add a quote</a>
+            <a  class="current" href="delete-quote.html">Delete quote</a>
+            <a href="modify-quote.html">Modify Quote</a>
+        </nav>
+
+
+        
+        <div class="container">
+            <div class="select-theme">
+                <h2>Please select your prefered theme first</h2>
+                <select>
+                    <option value="techonology" selected>Techonology</option>
+                    <option value="love">Love</option>
+                    <option value="life">Life</option>
+                </select>
+             </div>
+
+            <div class="get-quote">
+                <label for="id">Please input the id number:</label>
+                <input type="number" name="id">   
+            </div>
+            <button>Delete quote</button>
+        </div>
+    </body>
+
+    <script src="./delete-quote.js"></script>
+</html>

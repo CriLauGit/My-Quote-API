@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="./styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Qoute it</title>
+        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Pacifico|Righteous|Special+Elite&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <h1>YOU THINK IT, WE QUOTE IT</h1>
+        </header>
+
+        <nav>
+            <a class="current" href="index.html">Home</a>
+            <a href="add-quote.html">Add a quote</a>
+            <a href="delete-quote.html">Delete quote</a>
+            <a href="modify-quote.html">Modify Quote</a>
+        </nav>
+
+
+
+        <div class="container">
+            <div class="get-quote">
+                <label for="quote">Get quotes by author:</label>
+                <input type="text" name="quote" id="author">
+                <button>Get Quotes</button>
+            </div>
+
+            <div class="select-theme">
+                <h2>Please select your prefered theme</h2>
+                <select>
+                    <option value="techonology" selected id="theme">Techonology</option>
+                    <option value="love" id="theme">Love</option>
+                    <option value="life" id="theme">Life</option>
+                </select>
+                <button>Get all quotes</button>
+            </div>
+
+            
+            <button>Add Quote</button>
+            <button>Delete Quote</button>
+            <button>Modify Quote</button>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
+</html>
