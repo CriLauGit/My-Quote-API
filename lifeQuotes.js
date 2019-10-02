@@ -13,7 +13,7 @@ lifeQuotesRouter.get('/', (req, res) => {
     if(person !== undefined) {
         res.send( {
             quotes: quotesByAuthor
-        })
+        });
     } else {
         res.send( {
             quotes: lifeQuotes

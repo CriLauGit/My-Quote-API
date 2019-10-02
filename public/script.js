@@ -53,9 +53,13 @@ async function fetchURLs() {
                 .then(response => {if(response.ok) { return response.json();} else { return response.status;}})
         ]);
         for(let i of data) {
-            if(i.quotes[0] !== undefined) {
-                quotesByAuthor.push(i.quotes[0]);
+            console.log(i);
+            for(let j=0; j<i.quotes.length; j++) {
+                if(i.quotes[j] !== undefined) {
+                    quotesByAuthor.push(i.quotes[j]);
+                }
             }
+
         }
         if(quotesByAuthor) {
             renderQuotes(quotesByAuthor);
