@@ -95,3 +95,26 @@ input, select {
 .current {
     color: blue;
 }
+
+#quote-container {
+    position: relative;
+    top: 250px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.quote-text {
+    text-align: justify;
+    font-size: 1.2rem;
+    font-family: 'Pacifico', cursive;
+}
+
+.attribution {
+    text-align: left;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+.presentation {
+    font-size: 1.7rem;
+    font-family: 'Permanent Marker', cursive;
+}

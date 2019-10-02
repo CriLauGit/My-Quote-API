@@ -4,8 +4,8 @@
     <head>
         <link rel="stylesheet" href="./styles.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Qoute it</title>
-        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Pacifico|Righteous|Special+Elite&display=swap" rel="stylesheet">
+        <title>Quote it</title>
+        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Pacifico|Permanent+Marker|Righteous|Shadows+Into+Light|Special+Elite&display=swap" rel="stylesheet">
     </head>
 
     <body>
@@ -26,24 +26,24 @@
             <div class="get-quote">
                 <label for="quote">Get quotes by author:</label>
                 <input type="text" name="quote" id="author">
-                <button>Get Quotes</button>
+                <button id="fetchByAuthor">Get Quotes</button>
             </div>
 
             <div class="select-theme">
                 <h2>Please select your prefered theme</h2>
-                <select>
-                    <option value="techonology" selected id="theme">Techonology</option>
-                    <option value="love" id="theme">Love</option>
-                    <option value="life" id="theme">Life</option>
+                <select id="theme" >
+                    <option value="techonology" selected>Techonology</option>
+                    <option value="love">Love</option>
+                    <option value="life">Life</option>
                 </select>
-                <button>Get all quotes</button>
+                <button id='fetchByTheme'>Get all quotes</button>
+                <button id='fetchRandomByTheme'>Get a random quote</button>
             </div>
-
-            
-            <button>Add Quote</button>
+            <!-- <button>Add Quote</button>
             <button>Delete Quote</button>
-            <button>Modify Quote</button>
+            <button>Modify Quote</button> -->
         </div>
+        <div id="quote-container"></div>
 
         <script src="./script.js"></script>
     </body>
