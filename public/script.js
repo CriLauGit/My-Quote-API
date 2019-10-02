@@ -48,6 +48,8 @@ async function fetchURLs() {
             fetch(`/api/techQuotes?person=${author}`)
                 .then(response => {if(response.ok) { return response.json();} else { return response.status;}}),
             fetch(`/api/loveQuotes?person=${author}`)
+                .then(response => {if(response.ok) { return response.json();} else { return response.status;}}),
+            fetch(`/api/lifeQuotes?person=${author}`)
                 .then(response => {if(response.ok) { return response.json();} else { return response.status;}})
         ]);
         for(let i of data) {
@@ -91,6 +93,18 @@ fetchByThemeButton.addEventListener('click', () => {
     .then(response => {
       renderQuotes(response.quotes);
     })
+  } else if(theme === "life") {
+    fetch('/api/lifeQuotes')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        renderError(response);
+      }
+    })
+    .then(response => {
+      renderQuotes(response.quotes);
+    })
   } 
 
 });
@@ -120,5 +134,16 @@ fetchRandomByThemeButton.addEventListener('click', ()=> {
         }).then(response => {
             renderQuotes(response.quotes);
         })
-    } 
+    } else if(theme === "life") {
+        fetch('/api/lifeQuotes/random')
+        .then(response => {
+            if(response.ok) {
+                return response.json();
+            } else {
+                renderError(response);
+            }
+        }).then(response => {
+            renderQuotes(response.quotes);
+        })
+    }
 })

@@ -10,6 +10,6 @@ app.use(express.static('public'));
 
 app.use('/api/techQuotes', techQuotesRouter);
 app.use('/api/loveQuotes', loveQuotesRouter);
-app.use('api/lifeQuotes', lifeQuotesRouter);
+app.use('/api/lifeQuotes', lifeQuotesRouter);
 
 app.listen(PORT);
