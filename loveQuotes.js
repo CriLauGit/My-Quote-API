@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getRandomElement, getElementsByAuthor } = require('./utils');
+const { getRandomElement, getElementsByAuthor, generateId } = require('./utils');
 
 const { loveQuotes } = require('./data');
 
@@ -29,5 +29,22 @@ loveQuotesRouter.get('/random', (req, res) => {
     });
 });
 
+//add quote
+loveQuotesRouter.post('/', (req, res)=> {
+    if(req.query.quote && req.query.person) {
+        const newQuote = {
+            id: generateId(loveQuotes, 'LV'),
+            quote: req.query.quote,
+            person: req.query.person,
+        };
+        loveQuotes.push(newQuote);
+        res.send({
+            quote: newQuote
+        })
+    } else {
+        res.status(400).send();
+    }
+
+})
 
 module.exports = loveQuotesRouter;

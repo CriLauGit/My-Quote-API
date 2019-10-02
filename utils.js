@@ -12,7 +12,12 @@ const getElementsByAuthor = (arr, author) => {
   return elementsByAuthor;
 }
 
+const generateId = (arr, value) => {
+  let newId = `${value}${String(arr.length+1)}` 
+  return newId;
+}
+
 module.exports = {
-  getRandomElement, getElementsByAuthor
+  getRandomElement, getElementsByAuthor, generateId
 };
 
