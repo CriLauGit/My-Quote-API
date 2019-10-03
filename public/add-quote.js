@@ -5,13 +5,12 @@ const resetQuotes = () => {
     newQuoteContainer.innerHTML = '';
   }
 
-submitButton.addEventListener('click', ()=> {
-    const quote = document.getElementById("quote").value;
-    const author = document.getElementById("author").value;
-    const theme = document.getElementById("theme").value;
+/**
+ * The function selects the router using the theme selected by the user
+ * @param {string} theme 
+ */
+const selectRouter = (theme) => {
     let router = "";
-    resetQuotes();
-
     if(theme === "techonology") {
         router = "/api/techQuotes";
     } else if (theme === "love") {
@@ -19,6 +18,15 @@ submitButton.addEventListener('click', ()=> {
     } else {
         router = "/api/lifeQuotes";
     }
+    return router;
+}
+
+submitButton.addEventListener('click', ()=> {
+    const quote = document.getElementById("quote").value;
+    const author = document.getElementById("author").value;
+    const theme = document.getElementById("theme").value;
+    const router = selectRouter(theme);
+    resetQuotes();
 
     fetch(`${router}?quote=${quote}&person=${author}`, {
             method: "POST",
@@ -27,7 +35,7 @@ submitButton.addEventListener('click', ()=> {
         .then(({quote}) => {
             const newQuote = document.createElement('div');
             newQuote.innerHTML = `
-            <h3>Congrats! Your quote was added.</h3>
+            <p class="presentation">Congrats! Your quote was added.</p>
             <div class="quote-text">${quote.id}. ${quote.quote}</d>
             <div class="attribution">${quote.person}</div>
             <p>Go to the <a href="index.html">home page</a> to request and view all quotes.</p>`;

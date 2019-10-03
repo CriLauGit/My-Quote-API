@@ -24,8 +24,8 @@
         
         <div class="container">
             <div class="select-theme">
-                <h2>Please select your prefered theme first</h2>
-                <select>
+                <h2>Please select the theme of the quote you wish to delete first</h2>
+                <select id="theme">
                     <option value="techonology" selected>Techonology</option>
                     <option value="love">Love</option>
                     <option value="life">Life</option>
@@ -33,11 +33,12 @@
              </div>
 
             <div class="get-quote">
-                <label for="id">Please input the id number:</label>
-                <input type="number" name="id">   
+                <label for="id">Please input the number of the quote:</label>
+                <input type="number" name="id" id="number">   
             </div>
-            <button>Delete quote</button>
+            <button id="delete-quote">Delete quote</button>
         </div>
+        <div id="quote-container"></div>
     </body>
 
     <script src="./delete-quote.js"></script>

@@ -41,40 +41,62 @@ const renderQuotes = (quotes = []) => {
     }
 }
 
+/**
+ * Function to fetch the quotes of the author indicated by the user
+ * in all the database
+ */ 
 async function fetchURLs() {
     const author = document.getElementById('author').value;
     let quotesByAuthor = [];
-        var data = await Promise.all([
-            fetch(`/api/techQuotes?person=${author}`)
-                .then(response => {if(response.ok) { return response.json();} else { return response.status;}}),
-            fetch(`/api/loveQuotes?person=${author}`)
-                .then(response => {if(response.ok) { return response.json();} else { return response.status;}}),
-            fetch(`/api/lifeQuotes?person=${author}`)
-                .then(response => {if(response.ok) { return response.json();} else { return response.status;}})
-        ]);
-        for(let i of data) {
-            console.log(i);
-            for(let j=0; j<i.quotes.length; j++) {
-                if(i.quotes[j] !== undefined) {
-                    quotesByAuthor.push(i.quotes[j]);
-                }
-            }
 
+    var data = await Promise.all([
+        fetch(`/api/techQuotes?person=${author}`)
+            .then(response => {if(response.ok) { return response.json();} else { return response.status;}}),
+        fetch(`/api/loveQuotes?person=${author}`)
+            .then(response => {if(response.ok) { return response.json();} else { return response.status;}}),
+        fetch(`/api/lifeQuotes?person=${author}`)
+            .then(response => {if(response.ok) { return response.json();} else { return response.status;}})
+        ]);
+
+    for(let i of data) {
+        for(let j=0; j<i.quotes.length; j++) {
+            if(i.quotes[j] !== undefined) {
+                quotesByAuthor.push(i.quotes[j]);
+            }
         }
-        if(quotesByAuthor) {
-            renderQuotes(quotesByAuthor);
+    }
+    
+    if(quotesByAuthor) {
+        renderQuotes(quotesByAuthor);
         } else {
-            renderError();
-        }
+        renderError();
+        }       
     }
 
 fetchByAuthorButton.addEventListener('click', fetchURLs)
 
+/**
+ * The function selects the router for the fetchByThemeButton and the
+ * fetchRandomByThemeButton using the theme selected by the user 
+ * @param {string} theme 
+ */
+const selectRouter = (theme) => {
+    let router = "";
+    if(theme === "techonology") {
+        router = "/api/techQuotes";
+    } else if (theme === "love") {
+        router = "/api/loveQuotes";
+    } else {
+        router = "/api/lifeQuotes";
+    }
+    return router;
+}
 
 fetchByThemeButton.addEventListener('click', () => {
     const theme = document.getElementById('theme').value;
-    if(theme === "techonology"){
-    fetch('/api/techQuotes')
+    const router = selectRouter(theme);
+
+    fetch(router)
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -85,39 +107,14 @@ fetchByThemeButton.addEventListener('click', () => {
     .then(response => {
       renderQuotes(response.quotes);
     });
-  } else if(theme === "love") {
-    fetch('/api/loveQuotes')
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        renderError(response);
-      }
-    })
-    .then(response => {
-      renderQuotes(response.quotes);
-    })
-  } else if(theme === "life") {
-    fetch('/api/lifeQuotes')
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        renderError(response);
-      }
-    })
-    .then(response => {
-      renderQuotes(response.quotes);
-    })
-  } 
-
-});
+  }
+);
 
 fetchRandomByThemeButton.addEventListener('click', ()=> {
     const theme = document.getElementById('theme').value;
-    console.log(theme);
-    if(theme === "techonology") {
-        fetch('/api/techQuotes/random')
+    const router = selectRouter(theme);
+    
+    fetch(`${router}/random`)
         .then(response => {
             if(response.ok) {
                 return response.json();
@@ -127,27 +124,4 @@ fetchRandomByThemeButton.addEventListener('click', ()=> {
         }).then(response => {
             renderQuotes(response.quotes);
         })
-    } else if(theme === "love") {
-        fetch('/api/loveQuotes/random')
-        .then(response => {
-            if(response.ok) {
-                return response.json();
-            } else {
-                renderError(response);
-            }
-        }).then(response => {
-            renderQuotes(response.quotes);
-        })
-    } else if(theme === "life") {
-        fetch('/api/lifeQuotes/random')
-        .then(response => {
-            if(response.ok) {
-                return response.json();
-            } else {
-                renderError(response);
-            }
-        }).then(response => {
-            renderQuotes(response.quotes);
-        })
-    }
-})
+    })

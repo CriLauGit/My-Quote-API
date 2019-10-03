@@ -1,12 +1,12 @@
 const express = require('express');
 
-const { getRandomElement, getElementsByAuthor, generateId } = require('./utils');
+const { getRandomElement, getElementsByAuthor, generateId, findIndex } = require('./utils');
 
 const { techQuotes } = require('./data');
 
 techQuotesRouter = express.Router();
 
-//get quote by author or all quotes
+//get quote by author or all quotes if the request is made without a query
 techQuotesRouter.get('/', (req, res) => {
     const person = req.query.person;
     let quotesByAuthor = getElementsByAuthor(techQuotes, person);
@@ -21,7 +21,7 @@ techQuotesRouter.get('/', (req, res) => {
     }
 });
 
-//get random
+//get a random quote
 techQuotesRouter.get('/random', (req, res) => {
     let randomQuote = getRandomElement(techQuotes);
     res.send({
@@ -29,7 +29,7 @@ techQuotesRouter.get('/random', (req, res) => {
     });
 });
 
-//add quote
+//add a quote
 techQuotesRouter.post('/', (req, res)=> {
     if(req.query.quote && req.query.person) {
         const newQuote = {
@@ -44,8 +44,19 @@ techQuotesRouter.post('/', (req, res)=> {
     } else {
         res.status(400).send();
     }
-
 })
 
+//delete quote
+techQuotesRouter.delete('/:id', (req, res)=> {
+    const id = req.params.id;
+    const index = findIndex(techQuotes, id);
+
+    if(index === -1) {
+        res.status(404).send();
+    } else {
+        techQuotes.splice(index, 1);
+        res.status(200).send();
+    }
+})
 
 module.exports = techQuotesRouter;

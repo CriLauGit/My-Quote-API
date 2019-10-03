@@ -6,7 +6,7 @@ const { loveQuotes } = require('./data');
 
 loveQuotesRouter = express.Router();
 
-//get quote by author or all quotes
+//get quote by author or all quotes if the request is made without a query
 loveQuotesRouter.get('/', (req, res) => {
     const person = req.query.person;
     let quotesByAuthor = getElementsByAuthor(loveQuotes, person);
@@ -21,7 +21,7 @@ loveQuotesRouter.get('/', (req, res) => {
     }
 });
 
-//get random
+//get a random quote
 loveQuotesRouter.get('/random', (req, res) => {
     let randomQuote = getRandomElement(loveQuotes);
     res.send({
@@ -29,7 +29,7 @@ loveQuotesRouter.get('/random', (req, res) => {
     });
 });
 
-//add quote
+//add a quote
 loveQuotesRouter.post('/', (req, res)=> {
     if(req.query.quote && req.query.person) {
         const newQuote = {
@@ -44,7 +44,6 @@ loveQuotesRouter.post('/', (req, res)=> {
     } else {
         res.status(400).send();
     }
-
 })
 
 module.exports = loveQuotesRouter;

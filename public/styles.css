@@ -44,6 +44,14 @@ nav a:hover {
     position: relative;
     font-size: 1rem;
     font-family: 'Special Elite', cursive;
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#description {
+    width: 100%;
 }
 
 .container {
@@ -89,7 +97,7 @@ label {
 input, select {
     height: 30px;
     font-size: 1.2rem;
-    margin: 10px;
+    margin: 19px;
 }
 
 .current {
@@ -117,4 +125,26 @@ input, select {
 .presentation {
     font-size: 1.7rem;
     font-family: 'Permanent Marker', cursive;
+}
+
+.details {
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: 'Pacifico', cursive;
+}
+
+@media screen and (max-width: 600px) {
+    input {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    nav {
+        top: 250px;
+    }
+    
+    input {
+        width: 80%;
+    }
 }
