@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getRandomElement, getElementsByAuthor, generateId, findIndex } = require('./utils');
+const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('./utils');
 
 const { techQuotes } = require('./data');
 
@@ -54,7 +54,7 @@ techQuotesRouter.delete('/:id', (req, res)=> {
     if(index === -1) {
         res.status(404).send();
     } else {
-        techQuotes.splice(index, 1);
+        deleteQuote(techQuotes, index);
         res.status(200).send();
     }
 })

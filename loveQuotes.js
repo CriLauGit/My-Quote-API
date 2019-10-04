@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getRandomElement, getElementsByAuthor, generateId } = require('./utils');
+const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('./utils');
 
 const { loveQuotes } = require('./data');
 
@@ -43,6 +43,19 @@ loveQuotesRouter.post('/', (req, res)=> {
         })
     } else {
         res.status(400).send();
+    }
+})
+
+//delete quote
+loveQuotesRouter.delete('/:id', (req, res)=> {
+    const id = req.params.id;
+    const index = findIndex(loveQuotes, id);
+
+    if(index === -1) {
+        res.status(404).send();
+    } else {
+        deleteQuote(loveQuotes, index);
+        res.status(200).send();
     }
 })
 

@@ -10,4 +10,4 @@ The API is not linked to a database yet, the data (arrays of quote objects - wit
 Functionality:
   - fetches quotes by author from the entire database 
   - gets all quotes or a random quote for each selected theme (from technology, love, life) 
-  - the user can add quotes, modify quotes and delete quotes (the last two are not yet completed)
+  - the user can add quotes, delete quotes and modify quotes (the latter is not yet completed)
