@@ -25,7 +25,7 @@
         <div class="container">
             <div class="select-theme">
                 <h2>Please select your prefered theme first</h2>
-                <select>
+                <select id="theme">
                     <option value="techonology" selected>Techonology</option>
                     <option value="love">Love</option>
                     <option value="life">Life</option>
@@ -35,18 +35,19 @@
 
             <div class="get-quote">
                 <label for="id">Please input the quote id number:</label>
-                <input type="number" name="id">
+                <input type="number" name="id" id="id">
             </div>
             <div class="get-quote">
-                <label for="quote">Please input the quote:</label>
-                <input type="text" name="quote">
+                <label for="quote">Please input the desired text of the quote:</label>
+                <input type="text" name="quote" id="quote">
             </div>
             <div class="get-quote">
-                <label for="author">Please input the author:</label>
-                <input type="text" name="author">   
+                <label for="author">Or please input the new author name:</label>
+                <input type="text" name="author" id="author">   
             </div>
-            <button>Modify quote</button>
+            <button id="modifyQuoteButton">Modify quote</button>
         </div>
+        <div id="quote-container"></div>
     </body>
 
     <script src="./modify-quote.js"></script>

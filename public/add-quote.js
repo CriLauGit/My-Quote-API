@@ -5,6 +5,14 @@ const resetQuotes = () => {
     newQuoteContainer.innerHTML = '';
   }
 
+const renderError = response => {
+    newQuoteContainer.innerHTML = `
+    <p class="presentation">Your request returned an error from the server: </p>
+    <p class="presentation">Code: ${response.status} </p>
+    <p class="presentation">${response.statusText}
+    `;
+}
+
 /**
  * The function selects the router using the theme selected by the user
  * @param {string} theme 
@@ -31,7 +39,13 @@ submitButton.addEventListener('click', ()=> {
     fetch(`${router}?quote=${quote}&person=${author}`, {
             method: "POST",
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+                newQuoteContainer.innerHTML = '<p class="presentation">Please enter the quote text and the name of the author</p>';
+            }
+          })
         .then(({quote}) => {
             const newQuote = document.createElement('div');
             newQuote.innerHTML = `
