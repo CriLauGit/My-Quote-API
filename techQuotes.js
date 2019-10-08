@@ -59,4 +59,28 @@ techQuotesRouter.delete('/:id', (req, res)=> {
     }
 })
 
+//modify quote
+techQuotesRouter.put('/:id', (req, res)=> {
+    const id = req.params.id;
+    const quoteText = req.query.quote;
+    const quotePerson = req.query.person;
+
+    const index = findIndex(techQuotes, id);
+    console.log(quoteText);
+   
+    if(!id || !quoteText && !quotePerson) {
+        res.status(400).send();
+    } else if(index === -1) {
+        res.status(404).send();
+    } else {
+        if(quoteText) {
+            techQuotes[index].quote = quoteText;
+        }
+        if(quotePerson) {
+            techQuotes[index].person = quotePerson;
+        }
+        res.status(200).send();
+    }
+})
+
 module.exports = techQuotesRouter;
