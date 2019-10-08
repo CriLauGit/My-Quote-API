@@ -59,4 +59,27 @@ lifeQuotesRouter.delete('/:id', (req, res)=> {
     }
 })
 
+//modify quote
+lifeQuotesRouter.put('/:id', (req, res)=> {
+    const id = req.params.id;
+    const quoteText = req.query.quote;
+    const quotePerson = req.query.person;
+
+    const index = findIndex(lifeQuotes, id);
+   
+    if(!id || !quoteText && !quotePerson) {
+        res.status(400).send();
+    } else if(index === -1) {
+        res.status(404).send();
+    } else {
+        if(quoteText) {
+            lifeQuotes[index].quote = quoteText;
+        }
+        if(quotePerson) {
+            lifeQuotes[index].person = quotePerson;
+        }
+        res.status(200).send();
+    }
+})
+
 module.exports = lifeQuotesRouter;

@@ -59,4 +59,28 @@ loveQuotesRouter.delete('/:id', (req, res)=> {
     }
 })
 
+//modify quote
+loveQuotesRouter.put('/:id', (req, res)=> {
+    const id = req.params.id;
+    const quoteText = req.query.quote;
+    const quotePerson = req.query.person;
+
+    const index = findIndex(loveQuotes, id);
+    console.log(quoteText);
+   
+    if(!id || !quoteText && !quotePerson) {
+        res.status(400).send();
+    } else if(index === -1) {
+        res.status(404).send();
+    } else {
+        if(quoteText) {
+            loveQuotes[index].quote = quoteText;
+        }
+        if(quotePerson) {
+            loveQuotes[index].person = quotePerson;
+        }
+        res.status(200).send();
+    }
+})
+
 module.exports = loveQuotesRouter;
