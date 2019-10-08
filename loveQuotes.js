@@ -66,7 +66,6 @@ loveQuotesRouter.put('/:id', (req, res)=> {
     const quotePerson = req.query.person;
 
     const index = findIndex(loveQuotes, id);
-    console.log(quoteText);
    
     if(!id || !quoteText && !quotePerson) {
         res.status(400).send();
