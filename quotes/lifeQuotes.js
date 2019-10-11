@@ -1,43 +1,45 @@
 const express = require('express');
 
-const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('./utils');
+const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('../utils');
 
-const { loveQuotes } = require('./data');
+const { lifeQuotes } = require('../data');
 
-loveQuotesRouter = express.Router();
+lifeQuotesRouter = express.Router();
 
 //get quote by author or all quotes if the request is made without a query
-loveQuotesRouter.get('/', (req, res) => {
+lifeQuotesRouter.get('/', (req, res) => {
     const person = req.query.person;
-    let quotesByAuthor = getElementsByAuthor(loveQuotes, person);
+    const quotes = person !== undefined ? getElementsByAuthor(lifeQuotes, person) : lifeQuotes;
+    res.send( {quotes: quotes});
+    /*let quotesByAuthor = getElementsByAuthor(lifeQuotes, person);
     if(person !== undefined) {
         res.send( {
             quotes: quotesByAuthor
-        })
+        });
     } else {
         res.send( {
-            quotes: loveQuotes
+            quotes: lifeQuotes
         })
-    }
+    }*/
 });
 
 //get a random quote
-loveQuotesRouter.get('/random', (req, res) => {
-    let randomQuote = getRandomElement(loveQuotes);
+lifeQuotesRouter.get('/random', (req, res) => {
+    let randomQuote = getRandomElement(lifeQuotes);
     res.send({
         quotes: [randomQuote]
     });
 });
 
-//add a quote
-loveQuotesRouter.post('/', (req, res)=> {
+//add a quote 
+lifeQuotesRouter.post('/', (req, res)=> {
     if(req.query.quote && req.query.person) {
         const newQuote = {
-            id: generateId(loveQuotes, 'LV'),
+            id: generateId(lifeQuotes, 'LF'),
             quote: req.query.quote,
             person: req.query.person,
         };
-        loveQuotes.push(newQuote);
+        lifeQuotes.push(newQuote);
         res.send({
             quote: newQuote
         })
@@ -47,25 +49,25 @@ loveQuotesRouter.post('/', (req, res)=> {
 })
 
 //delete quote
-loveQuotesRouter.delete('/:id', (req, res)=> {
+lifeQuotesRouter.delete('/:id', (req, res)=> {
     const id = req.params.id;
-    const index = findIndex(loveQuotes, id);
+    const index = findIndex(lifeQuotes, id);
 
     if(index === -1) {
         res.status(404).send();
     } else {
-        deleteQuote(loveQuotes, index);
+        deleteQuote(lifeQuotes, index);
         res.status(200).send();
     }
 })
 
 //modify quote
-loveQuotesRouter.put('/:id', (req, res)=> {
+lifeQuotesRouter.put('/:id', (req, res)=> {
     const id = req.params.id;
     const quoteText = req.query.quote;
     const quotePerson = req.query.person;
 
-    const index = findIndex(loveQuotes, id);
+    const index = findIndex(lifeQuotes, id);
    
     if(!id || !quoteText && !quotePerson) {
         res.status(400).send();
@@ -73,13 +75,13 @@ loveQuotesRouter.put('/:id', (req, res)=> {
         res.status(404).send();
     } else {
         if(quoteText) {
-            loveQuotes[index].quote = quoteText;
+            lifeQuotes[index].quote = quoteText;
         }
         if(quotePerson) {
-            loveQuotes[index].person = quotePerson;
+            lifeQuotes[index].person = quotePerson;
         }
         res.status(200).send();
     }
 })
 
-module.exports = loveQuotesRouter;
+module.exports = lifeQuotesRouter;

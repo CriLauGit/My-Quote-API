@@ -1,8 +1,8 @@
 const express = require('express');
 
-const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('./utils');
+const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('../utils');
 
-const { techQuotes } = require('./data');
+const { techQuotes } = require('../data');
 
 techQuotesRouter = express.Router();
 
