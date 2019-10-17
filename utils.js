@@ -9,29 +9,20 @@ const getRandomElement = arr => {
 }
 
 //Helper function used to retrive quotes of a certain author
-const getElementsByAuthor = (arr, author) => {
-  let elementsByAuthor = arr.filter(element => element.person === author);
-  return elementsByAuthor;
-}
+const getElementsByAuthor = (arr, author) => arr.filter(element => element.person === author);
 
 /**
  * Helper function used to generate IDs for added quotes 
  * ID: a simbol for each theme and the number of the quote
  */
-const generateId = (arr, value) => {
-  let newId = `${value}${String(arr.length+1)}` 
-  return newId;
-}
+const generateId = (arr, value) => `${value}${String(arr.length+1)}`;
 
 /**
  * Helper function used to find the index of a quote with a provided id
  */
 const findIndex = (arr, id) => {
-  const idToSearch = String(id.substr(1)); //removes the : caracter from the request id
-  const index = arr.findIndex(item => {
-    return item.id === idToSearch;
-  })
-  return index;
+  const idToSearch = String(id.substr(1)); //removes the ":" caracter from the request id
+  return arr.findIndex(item => item.id === idToSearch);
 }
 
 /**
@@ -41,7 +32,7 @@ const findIndex = (arr, id) => {
  */
 const deleteQuote = (arr, indexToDelete) => {
   if(indexToDelete === arr.length-1) {
-    arr.splice(index, 1);
+    arr.splice(indexToDelete, 1);
     } else {
       arr[indexToDelete].quote = arr[arr.length-1].quote;
       arr[indexToDelete].person = arr[arr.length-1].person;

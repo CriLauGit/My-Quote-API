@@ -2,6 +2,8 @@ const express = require('express');
 
 const { getRandomElement, getElementsByAuthor, generateId, findIndex, deleteQuote } = require('../utils');
 
+const myService = require('../quotes/myService');
+
 const { lifeQuotes } = require('../data');
 
 lifeQuotesRouter = express.Router();
@@ -9,18 +11,9 @@ lifeQuotesRouter = express.Router();
 //get quote by author or all quotes if the request is made without a query
 lifeQuotesRouter.get('/', (req, res) => {
     const person = req.query.person;
-    const quotes = person !== undefined ? getElementsByAuthor(lifeQuotes, person) : lifeQuotes;
-    res.send( {quotes: quotes});
-    /*let quotesByAuthor = getElementsByAuthor(lifeQuotes, person);
-    if(person !== undefined) {
-        res.send( {
-            quotes: quotesByAuthor
-        });
-    } else {
-        res.send( {
-            quotes: lifeQuotes
-        })
-    }*/
+    let quotesByAuthor = getElementsByAuthor(lifeQuotes, person);
+    const quotes = person ? quotesByAuthor : lifeQuotes;
+    res.send({ quotes: quotes });
 });
 
 //get a random quote
@@ -48,37 +41,28 @@ lifeQuotesRouter.post('/', (req, res)=> {
     }
 })
 
+//function that performs the lookup of the id and attach the index to the req object in subsequent middleware 
+lifeQuotesRouter.param('id', myService.findQuoteIndex);
+
 //delete quote
 lifeQuotesRouter.delete('/:id', (req, res)=> {
-    const id = req.params.id;
-    const index = findIndex(lifeQuotes, id);
-
-    if(index === -1) {
-        res.status(404).send();
-    } else {
-        deleteQuote(lifeQuotes, index);
+        deleteQuote(lifeQuotes, req.quoteIndex);
         res.status(200).send();
-    }
-})
+    })
 
 //modify quote
 lifeQuotesRouter.put('/:id', (req, res)=> {
-    const id = req.params.id;
     const quoteText = req.query.quote;
     const quotePerson = req.query.person;
-
-    const index = findIndex(lifeQuotes, id);
    
-    if(!id || !quoteText && !quotePerson) {
+    if(!quoteText && !quotePerson) {
         res.status(400).send();
-    } else if(index === -1) {
-        res.status(404).send();
     } else {
         if(quoteText) {
-            lifeQuotes[index].quote = quoteText;
+            lifeQuotes[req.quoteIndex].quote = quoteText;
         }
         if(quotePerson) {
-            lifeQuotes[index].person = quotePerson;
+            lifeQuotes[req.quoteIndex].person = quotePerson;
         }
         res.status(200).send();
     }

@@ -10,15 +10,8 @@ techQuotesRouter = express.Router();
 techQuotesRouter.get('/', (req, res) => {
     const person = req.query.person;
     let quotesByAuthor = getElementsByAuthor(techQuotes, person);
-    if(person !== undefined) {
-        res.send( {
-            quotes: quotesByAuthor
-        })
-    } else {
-        res.send( {
-            quotes: techQuotes
-        })
-    }
+    const quotes = person ? quotesByAuthor : techQuotes;
+    res.send({ quotes: quotes });
 });
 
 //get a random quote
